@@ -1,0 +1,42 @@
+[0m16:12:54.975343 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10806f8c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1096c7c50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1096c79d0>]}
+
+
+============================== 16:12:54.977815 | 975cc68d-d0d3-4055-a98e-f79b87b7e513 ==============================
+[0m16:12:54.977815 [info ] [MainThread]: Running with dbt=1.11.6
+[0m16:12:54.978069 [debug] [MainThread]: running dbt with arguments {'introspect': 'True', 'log_path': 'logs', 'version_check': 'True', 'static_parser': 'True', 'debug': 'False', 'indirect_selection': 'eager', 'log_format': 'default', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'no_print': 'None', 'partial_parse': 'True', 'profiles_dir': '/Users/daudsaid/.dbt', 'use_colors': 'True', 'quiet': 'False', 'invocation_command': 'dbt init fraud_dbt', 'send_anonymous_usage_stats': 'True', 'empty': 'None', 'log_cache_events': 'False', 'write_json': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'use_experimental_parser': 'False', 'warn_error': 'None'}
+[0m16:12:54.986933 [info ] [MainThread]: A project called fraud_dbt already exists here.
+[0m16:12:55.013548 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 0.07313604, "process_in_blocks": "0", "process_kernel_time": 0.135903, "process_mem_max_rss": "112689152", "process_out_blocks": "0", "process_user_time": 0.541564}
+[0m16:12:55.013872 [debug] [MainThread]: Command `dbt init` succeeded at 16:12:55.013807 after 0.07 seconds
+[0m16:12:55.014050 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1097542b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1097c03b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109513bd0>]}
+[0m16:12:55.014228 [debug] [MainThread]: Flushing usage events
+[0m16:12:55.823904 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m16:22:51.649199 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107f378c0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10958fc50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10958f9d0>]}
+
+
+============================== 16:22:51.653355 | 8c51e40e-0d0a-4222-b4eb-97aae461d8f9 ==============================
+[0m16:22:51.653355 [info ] [MainThread]: Running with dbt=1.11.6
+[0m16:22:51.653614 [debug] [MainThread]: running dbt with arguments {'fail_fast': 'False', 'profiles_dir': '/Users/daudsaid/.dbt', 'printer_width': '80', 'send_anonymous_usage_stats': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'no_print': 'None', 'debug': 'False', 'indirect_selection': 'eager', 'cache_selected_only': 'False', 'static_parser': 'True', 'partial_parse': 'True', 'warn_error': 'None', 'target_path': 'None', 'use_colors': 'True', 'write_json': 'True', 'log_path': 'logs', 'quiet': 'False', 'empty': 'None', 'version_check': 'True', 'log_format': 'default', 'invocation_command': 'dbt init fraud_dbt', 'log_cache_events': 'False', 'use_experimental_parser': 'False', 'introspect': 'True'}
+[0m16:22:51.661808 [debug] [MainThread]: Starter project path: /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages/dbt/include/starter_project
+[0m16:22:51.666799 [info ] [MainThread]: 
+Your new dbt project "fraud_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:22:51.666941 [info ] [MainThread]: Setting up your profile.
+[0m16:24:42.431369 [info ] [MainThread]: Profile fraud_dbt written to /Users/daudsaid/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m16:24:42.441807 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 110.82557, "process_in_blocks": "0", "process_kernel_time": 0.155214, "process_mem_max_rss": "111001600", "process_out_blocks": "0", "process_user_time": 0.54952}
+[0m16:24:42.442868 [debug] [MainThread]: Command `dbt init` succeeded at 16:24:42.442650 after 110.83 seconds
+[0m16:24:42.443869 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10960f490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107a183b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10963f130>]}
+[0m16:24:42.444479 [debug] [MainThread]: Flushing usage events
+[0m16:24:42.965681 [debug] [MainThread]: An error was encountered while trying to flush usage events

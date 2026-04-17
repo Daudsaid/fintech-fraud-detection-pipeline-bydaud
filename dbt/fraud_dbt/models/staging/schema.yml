@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: "Cleaned and renamed raw transaction data"
+    columns:
+      - name: transaction_id
+        description: "Unique transaction identifier"
+        tests:
+          - unique
+          - not_null
+
+      - name: is_fraud
+        description: "Actual fraud label (0 or 1)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+
+      - name: fraud_score
+        description: "Rule-based fraud score 0-100"
+        tests:
+          - not_null
+
+      - name: product_cd
+        description: "Product category"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['W', 'C', 'R', 'H', 'S']

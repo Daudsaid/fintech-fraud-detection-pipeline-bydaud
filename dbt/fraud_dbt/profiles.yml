@@ -1,0 +1,12 @@
+fraud_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: host.docker.internal
+      port: 5433
+      user: daudsaid
+      password: '9848'
+      dbname: fraud_db
+      schema: public
+      threads: 4
