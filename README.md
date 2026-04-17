@@ -6,12 +6,13 @@ Production-grade data engineering pipeline for real-time transaction fraud detec
 
 ## Architecture
 
+```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Data Sources                             │
 │         IEEE-CIS train_transaction.csv + train_identity.csv     │
 └──────────────────────────┬──────────────────────────────────────┘
-│
-▼
+                           │
+                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Python ETL Layer                           │
 │   extract.py → transform.py → load_to_postgres.py              │
@@ -20,33 +21,31 @@ Production-grade data engineering pipeline for real-time transaction fraud detec
 │   • Rule-based fraud scoring (0–100)                            │
 │   • Chunked batch loading (10k rows/batch)                      │
 └──────────────────────────┬──────────────────────────────────────┘
-│
-▼
+                           │
+                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     PostgreSQL                                  │
+│                        PostgreSQL                               │
 │   raw_transactions (590,540 rows)                               │
 │   fraud_alerts (Kafka consumer output)                          │
 └──────────┬──────────────────────────────┬───────────────────────┘
-│                              │
-▼                              ▼
+           │                              │
+           ▼                              ▼
 ┌──────────────────────┐     ┌────────────────────────────────────┐
-│   Apache Kafka       │     │           dbt                      │
+│    Apache Kafka      │     │              dbt                   │
 │                      │     │                                    │
 │  producer.py         │     │  stg_transactions (view)           │
 │  → fraud.transactions│     │  int_flagged_transactions (view)   │
 │  → consumer.py       │     │  mart_fraud_summary (table)        │
 │  → fraud_alerts      │     │  6/6 tests passing                 │
 └──────────────────────┘     └────────────────────────────────────┘
-│
-▼
+                           │
+                           ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Apache Airflow                               │
+│                     Apache Airflow                              │
 │   fraud_pipeline DAG — @daily                                   │
 │   extract → transform_and_load → dbt_run → dbt_test            │
 └─────────────────────────────────────────────────────────────────┘
-
-
----
+```
 
 ---
 
@@ -87,40 +86,46 @@ Production-grade data engineering pipeline for real-time transaction fraud detec
 
 ## Fraud Score Formula
 
+```
 fraud_score = (
-amt_zscore.clip(0,5)     × 8   +
-is_night                 × 10  +
-is_weekend               × 5   +
-is_high_value            × 15  +
-is_high_fraud_product    × 20  +
-p_email_risky            × 5   +
-v_null_density           × 15  +
-(1 - email_match)        × 10
+    amt_zscore.clip(0,5)     x 8   +
+    is_night                 x 10  +
+    is_weekend               x 5   +
+    is_high_value            x 15  +
+    is_high_fraud_product    x 20  +
+    p_email_risky            x 5   +
+    v_null_density           x 15  +
+    (1 - email_match)        x 10
 ).clip(0, 100)
+
 Threshold: fraud_flag = 1 if fraud_score >= 40
+```
 
 ---
 
 ## dbt Layer
 
+```
 models/
 ├── staging/
-│   ├── sources.yml              # raw_transactions, fraud_alerts
-│   ├── schema.yml               # 6 data tests
-│   └── stg_transactions.sql     # view — clean typed source
+│   ├── sources.yml                       # raw_transactions, fraud_alerts
+│   ├── schema.yml                        # 6 data tests
+│   └── stg_transactions.sql              # view — clean typed source
 ├── intermediate/
-│   └── int_flagged_transactions.sql  # view — fraud_flag = 1
+│   └── int_flagged_transactions.sql      # view — fraud_flag = 1
 └── marts/
-└── mart_fraud_summary.sql   # table — fraud rates by segment
+    └── mart_fraud_summary.sql            # table — fraud rates by segment
+```
 
-All models run in < 1 second. mart_fraud_summary produces 118 rows aggregated across product, card network, time-of-day, and value segments.
+All models run in under 1 second. mart_fraud_summary produces 118 rows aggregated across product, card network, time-of-day, and value segments.
 
 ---
 
 ## Airflow DAG
 
-
+```
 fraud_pipeline (@daily)
+
 [extract] ──→ [transform_and_load] ──→ [dbt_run] ──→ [dbt_test]
 
 Operator:          BashOperator
@@ -128,6 +133,9 @@ Retries:           2 per task
 Timeouts:          extract=15m, load=20m, dbt=10m
 Zombie threshold:  600s
 Catchup:           False
+```
+
+---
 
 ## Key Findings
 
@@ -172,35 +180,47 @@ Overall fraud rate: **3.5%** (20,663 / 590,540 transactions)
 
 ### Start Infrastructure
 
+```bash
 docker compose up -d
 docker compose -f airflow/docker-compose.yml up -d
+```
 
 ### Run ETL
 
+```bash
 python3 etl/load/load_to_postgres.py
+```
 
 ### Stream via Kafka
 
-Terminal 1: python3 kafka/producer/producer.py --limit 50000
-Terminal 2: python3 kafka/consumer/consumer.py
+```bash
+# Terminal 1
+python3 kafka/producer/producer.py --limit 50000
+
+# Terminal 2
+python3 kafka/consumer/consumer.py
+```
 
 ### Run dbt
 
+```bash
 cd dbt/fraud_dbt
 dbt run
 dbt test
+```
 
-### Airflow
+### Airflow UI
 
+```
 http://localhost:8082
 Username: admin
 Password: admin
+```
 
 ---
 
 ## Dataset
 
-IEEE-CIS Fraud Detection — Kaggle Competition
-https://www.kaggle.com/c/ieee-fraud-detection
+[IEEE-CIS Fraud Detection — Kaggle](https://www.kaggle.com/c/ieee-fraud-detection)
 
 590,540 transactions | 144,233 identity records | 3.5% fraud rate | 434 raw features
