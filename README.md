@@ -15,7 +15,7 @@ Production-grade data engineering pipeline for real-time transaction fraud detec
                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Python ETL Layer                           │
-│   extract.py → transform.py → load_to_postgres.py              │
+│   extract.py → transform.py → load_to_postgres.py               │
 │   • Column selection (77 cols from 434)                         │
 │   • Feature engineering (12 derived features)                   │
 │   • Rule-based fraud scoring (0–100)                            │
@@ -43,7 +43,7 @@ Production-grade data engineering pipeline for real-time transaction fraud detec
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Apache Airflow                              │
 │   fraud_pipeline DAG — @daily                                   │
-│   extract → transform_and_load → dbt_run → dbt_test            │
+│   extract → transform_and_load → dbt_run → dbt_test             │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -224,3 +224,16 @@ Password: admin
 [IEEE-CIS Fraud Detection — Kaggle](https://www.kaggle.com/c/ieee-fraud-detection)
 
 590,540 transactions | 144,233 identity records | 3.5% fraud rate | 434 raw features
+
+---
+
+## Author
+
+**Daud Abdi** — Data Engineer & Full-Stack Software Engineer based in London.
+
+| | |
+|---|---|
+| Portfolio | [daudabdi.com](https://daudabdi.com) |
+| GitHub | [github.com/Daudsaid](https://github.com/Daudsaid) |
+| LinkedIn | [linkedin.com/in/daudabdi0506](https://linkedin.com/in/daudabdi0506) |
+| Email | daudsaidabdi@gmail.com |
